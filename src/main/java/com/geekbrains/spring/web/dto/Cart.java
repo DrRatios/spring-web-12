@@ -16,7 +16,7 @@ public class Cart {
         this.items = new ArrayList<>();
     }
 
-    public boolean addProduct(Long id) {
+    public boolean add(Long id) {
         for (OrderItemDto item : items) {
             if (item.getProductId().equals(id)) {
                 item.changeQuantity(1);
@@ -27,24 +27,24 @@ public class Cart {
         return false;
     }
 
-    public void addProduct(Product product) {
-        if (addProduct(product.getId())) {
+    public void add(Product product) {
+        if (add(product.getId())) {
             return;
         }
         items.add(new OrderItemDto(product));
         recalculate();
     }
 
-    public void remove(Long id) {
-        items.removeIf(item -> item.getProductId().equals(id));
+    public void remove(Long productId) {
+        items.removeIf(item -> item.getProductId().equals(productId));
         recalculate();
     }
 
-    public void decreaseProduct(Long id) {
+    public void decrement(Long productId) {
         Iterator<OrderItemDto> iterator = items.iterator();
         while(iterator.hasNext()) {
             OrderItemDto item = iterator.next();
-            if (item.getProductId().equals(id)) {
+            if (item.getProductId().equals(productId)) {
                 item.changeQuantity(-1);
                 if (item.getQuantity() <= 0) {
                     iterator.remove();
@@ -56,7 +56,7 @@ public class Cart {
 
 
         for (OrderItemDto item : items) {
-            if (item.getProductId().equals(id)) {
+            if (item.getProductId().equals(productId)) {
                 item.changeQuantity(-1);
                 if (item.getQuantity() <= 0) {
 
@@ -76,5 +76,23 @@ public class Cart {
         for (OrderItemDto item : items) {
             totalPrice += item.getPrice();
         }
+    }
+
+    public void merge(Cart another) {
+        for (OrderItemDto anotherItem : another.items) {
+            boolean merged = false;
+            for (OrderItemDto myItem : items) {
+                if (myItem.getProductId().equals(anotherItem.getProductId())) {
+                    myItem.changeQuantity(anotherItem.getQuantity());
+                    merged = true;
+                    break;
+                }
+            }
+            if (!merged) {
+                items.add(anotherItem);
+            }
+        }
+        recalculate();
+        another.clear();
     }
 }

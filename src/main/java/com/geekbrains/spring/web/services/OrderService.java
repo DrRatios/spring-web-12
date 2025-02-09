@@ -65,7 +65,8 @@ public class OrderService {
 
     @Transactional
     public void createOrder(User user, OrderDetailDto orderDetailDto) {
-        Cart cart = cartService.getCurrentCart();
+        String cartKey = cartService.getCartUuidFromSuffix(user.getUsername());
+        Cart cart = cartService.getCurrentCart(cartKey);
         Order order = Order.builder()
                 .address(orderDetailDto.getAddress())
                 .phone(orderDetailDto.getPhone())
@@ -84,6 +85,6 @@ public class OrderService {
                 .collect(Collectors.toList());
         order.setItems(items);
         orderRepository.save(order);
-        cartService.clear();
+        cartService.clearCart(cartKey);
     }
 }
