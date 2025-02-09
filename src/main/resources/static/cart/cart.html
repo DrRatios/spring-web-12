@@ -1,0 +1,40 @@
+<div>
+    <h3>Корзина</h3>
+    <table class="table table-hover">
+        <tr>
+            <td>Название товара</td>
+            <td>Количество</td>
+            <td>Цена</td>
+            <td></td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="item in currentCart.items">
+            <td>{{item.productTitle}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="removeFromCart(item.productId)">-</button>
+                <button class="btn btn-primary" ng-click="addToCart(item.productId)">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Итого</td>
+            <td>{{currentCart.totalPrice}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-secondary" ng-click="clearCart()">Очистить корзину</button>
+
+    <h3>Детали заказа</h3>
+    <form novalidate ng-submit="createOrder()">
+        <input class="form-control" type="text" placeholder="Телефон получателя" ng-model="orderDetails.phone">
+        <p></p>
+        <input class="form-control" type="text" placeholder="Адрес доставки" ng-model="orderDetails.address">
+        <p></p>
+        <button type="submit" class="btn btn-primary" ng-show="isUserLoggedIn() && currentCart.items.length>0">
+            Заказать
+        </button>
+        <p ng-show="!isUserLoggedIn() && currentCart.items.length>0">Войдите, чтобы сделать заказ </p>
+    </form>
+</div>
