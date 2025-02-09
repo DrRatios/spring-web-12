@@ -9,6 +9,15 @@ create table if not exists products (
 insert into products (title, price)
 values ('Milk', 100),
        ('Bread', 80),
+       ('Milk2', 100),
+       ('Milk3', 80),
+       ('Milk4', 100),
+       ('Milk5', 80),
+       ('Milk6', 100),
+       ('Milk7', 80),
+       ('Milk8', 100),
+       ('Milk9', 80),
+       ('Milk10', 100),
        ('Cheese', 90);
 
 create table users (
