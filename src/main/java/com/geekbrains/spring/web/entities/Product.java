@@ -1,13 +1,17 @@
 package com.geekbrains.spring.web.entities;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JoinFormula;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 
 @Entity
 @Table(name = "products")
@@ -32,6 +36,13 @@ public class Product {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "categories_products",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Collection<Category> categories;
 
     public Product(Long id, String title, Integer price) {
         this.id = id;

@@ -9,16 +9,43 @@ create table if not exists products (
 insert into products (title, price)
 values ('Milk', 100),
        ('Bread', 80),
-       ('Milk2', 100),
-       ('Milk3', 80),
-       ('Milk4', 100),
-       ('Milk5', 80),
-       ('Milk6', 100),
-       ('Milk7', 80),
-       ('Milk8', 100),
-       ('Milk9', 80),
-       ('Milk10', 100),
+       ('Beef', 100),
+       ('Pork', 80),
+       ('Колбаса', 100),
+       ('Chicken', 80),
+       ('Tuna', 100),
        ('Cheese', 90);
+
+create table if not exists categories (
+    id bigserial primary key,
+    name varchar(255),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
+    );
+
+insert into categories (name)
+values ('Молочная продукция'),
+       ('Выпечка'),
+       ('Мясная продукция'),
+       ('Рыбная продукция');
+
+CREATE TABLE categories_products (
+    category_id bigint not null references categories (id),
+    product_id bigint not null references products (id),
+    primary key (category_id, product_id),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
+);
+
+insert into categories_products (category_id, product_id)
+values (1,1),
+       (1,8),
+       (2,2),
+       (3,3),
+       (3,4),
+       (3,5),
+       (3,6),
+       (4,7);
 
 create table users (
     id         bigserial primary key,

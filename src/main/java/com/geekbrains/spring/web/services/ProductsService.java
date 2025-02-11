@@ -1,6 +1,7 @@
 package com.geekbrains.spring.web.services;
 
 import com.geekbrains.spring.web.dto.ProductDto;
+import com.geekbrains.spring.web.entities.Category;
 import com.geekbrains.spring.web.entities.Product;
 import com.geekbrains.spring.web.exceptions.ResourceNotFoundException;
 import com.geekbrains.spring.web.repositories.ProductsRepository;
@@ -21,8 +22,9 @@ public class ProductsService {
     private final ProductsRepository productsRepository;
     private final EntityManager entityManager;
 
-    public Page<Product> findAll(Integer minPrice, Integer maxPrice, String partTitle, Integer page) {
+    public Page<Product> findAll(Integer minPrice, Integer maxPrice, String categoryNamePart, String partTitle, Integer page) {
         Specification<Product> spec = Specification.where(null);
+        Specification<Category> spec2 = Specification.where(null);
         if (minPrice != null) {
             spec = spec.and(ProductsSpecifications.priceGreaterOrEqualsThan(minPrice));
         }
@@ -31,6 +33,9 @@ public class ProductsService {
         }
         if (partTitle != null) {
             spec = spec.and(ProductsSpecifications.titleLike(partTitle));
+        }
+        if (categoryNamePart != null) {
+            spec = spec.and(ProductsSpecifications.categoryLike(categoryNamePart));
         }
 
         return productsRepository.findAll(spec, PageRequest.of(page - 1, 10));

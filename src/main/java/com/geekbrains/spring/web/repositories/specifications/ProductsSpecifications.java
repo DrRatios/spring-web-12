@@ -1,9 +1,11 @@
 package com.geekbrains.spring.web.repositories.specifications;
 
+import com.geekbrains.spring.web.entities.Category;
 import com.geekbrains.spring.web.entities.Product;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ProductsSpecifications {
+
     public static Specification<Product> priceGreaterOrEqualsThan(Integer price) {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("price"), price);
     }
@@ -15,4 +17,8 @@ public class ProductsSpecifications {
     public static Specification<Product> titleLike(String titlePart) {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("title"), String.format("%%%s%%", titlePart));
     }
+    public static Specification<Product> categoryLike(String titlePart) {
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.join("categories").get("name"), String.format("%%%s%%", titlePart));
+    }
+
 }
