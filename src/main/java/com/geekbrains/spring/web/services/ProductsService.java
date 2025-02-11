@@ -24,7 +24,6 @@ public class ProductsService {
 
     public Page<Product> findAll(Integer minPrice, Integer maxPrice, String categoryNamePart, String partTitle, Integer page) {
         Specification<Product> spec = Specification.where(null);
-        Specification<Category> spec2 = Specification.where(null);
         if (minPrice != null) {
             spec = spec.and(ProductsSpecifications.priceGreaterOrEqualsThan(minPrice));
         }

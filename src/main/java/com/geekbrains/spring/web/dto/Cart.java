@@ -42,7 +42,7 @@ public class Cart {
 
     public void decrement(Long productId) {
         Iterator<OrderItemDto> iterator = items.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             OrderItemDto item = iterator.next();
             if (item.getProductId().equals(productId)) {
                 item.changeQuantity(-1);
@@ -66,7 +66,7 @@ public class Cart {
         recalculate();
     }
 
-    public void clear (){
+    public void clear() {
         items.clear();
         totalPrice = 0;
     }

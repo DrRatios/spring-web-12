@@ -39,30 +39,6 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-//    @Transactional
-//    public void createOrder(String username, OrderDto orderDto) {
-//        Cart cart = cartService.getCurrentCart();
-//        Order order = Order.builder()
-//                .address(orderDto.getAddress())
-//                .phone(orderDto.getPhone())
-//                .totalPrice(cart.getTotalPrice())
-//                .user(userService.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User not found")))
-//                .build();
-//        log.info(order.toString());
-//        List<OrderItem> items = cart.getItems().stream().map(
-//                orderItemDto -> OrderItem.builder()
-//                        .order(order)
-//                        .product(productsService.findById(orderItemDto.getProductId()).orElseThrow(() -> new ResourceNotFoundException("Product not found")))
-//                        .pricePerProduct(orderItemDto.getPricePerProduct())
-//                        .price(orderItemDto.getPrice())
-//                        .quantity(orderItemDto.getQuantity())
-//                        .build())
-//                .collect(Collectors.toList());
-//        order.setItems(items);
-//        orderRepository.save(order);
-//        cartService.clear();
-//    }
-
     @Transactional
     public void createOrder(User user, OrderDetailDto orderDetailDto) {
         String cartKey = cartService.getCartUuidFromSuffix(user.getUsername());
