@@ -4,20 +4,18 @@ package com.geekbrains.spring.web.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JoinFormula;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 
 @Entity
 @Table(name = "products")
 @Data
 @NoArgsConstructor
-public class Product {
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -44,7 +42,7 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Collection<Category> categories;
 
-    public Product(Long id, String title, Integer price) {
+    public ProductEntity(Long id, String title, Integer price) {
         this.id = id;
         this.title = title;
         this.price = price;

@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,7 +24,7 @@ public class OrderItem {
 
     @JoinColumn(name = "product_id")
     @ManyToOne
-    private Product product;
+    private ProductEntity product;
 
     @JoinColumn(name = "order_id")
     @ManyToOne

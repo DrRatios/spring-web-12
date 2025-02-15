@@ -1,6 +1,6 @@
 package com.geekbrains.spring.web.dto;
 
-import com.geekbrains.spring.web.entities.Product;
+import com.geekbrains.spring.web.entities.ProductEntity;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class Cart {
         return false;
     }
 
-    public void add(Product product) {
+    public void add(ProductEntity product) {
         if (add(product.getId())) {
             return;
         }
