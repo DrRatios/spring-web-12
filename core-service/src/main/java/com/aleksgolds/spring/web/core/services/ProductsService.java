@@ -1,7 +1,7 @@
 package com.aleksgolds.spring.web.core.services;
 
 import com.aleksgolds.spring.web.api.exceptions.ResourceNotFoundException;
-import com.aleksgolds.spring.web.core.dto.ProductDto;
+import com.aleksgolds.spring.web.api.dto.ProductDto;
 import com.aleksgolds.spring.web.core.entities.ProductEntity;
 import com.aleksgolds.spring.web.core.repositories.ProductsRepository;
 import com.aleksgolds.spring.web.core.repositories.specifications.ProductsSpecifications;

@@ -1,14 +1,19 @@
-package com.aleksgolds.spring.web.core.dto;
+package com.aleksgolds.spring.web.cart.dto;
 
-import com.aleksgolds.spring.web.core.entities.ProductEntity;
+import com.aleksgolds.spring.web.api.dto.OrderItemDto;
+import com.aleksgolds.spring.web.api.dto.ProductDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@Builder
 public class Cart {
     private List<OrderItemDto> items;
     private int totalPrice;
@@ -28,11 +33,11 @@ public class Cart {
         return false;
     }
 
-    public void add(ProductEntity product) {
-        if (add(product.getId())) {
+    public void add(ProductDto productDto) {
+        if (add(productDto.getId())) {
             return;
         }
-        items.add(new OrderItemDto(product));
+        items.add(new OrderItemDto(productDto));
         recalculate();
     }
 

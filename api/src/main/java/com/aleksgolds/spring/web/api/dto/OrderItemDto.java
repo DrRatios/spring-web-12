@@ -1,6 +1,5 @@
-package com.aleksgolds.spring.web.core.dto;
+package com.aleksgolds.spring.web.api.dto;
 
-import com.aleksgolds.spring.web.core.entities.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,12 +16,12 @@ public class OrderItemDto {
     private int pricePerProduct;
     private int price;
 
-    public OrderItemDto(ProductEntity product) {
-        this.productId = product.getId();
-        this.productTitle = product.getTitle();
+    public OrderItemDto(ProductDto productDto) {
+        this.productId = productDto.getId();
+        this.productTitle = productDto.getTitle();
         this.quantity = 1;
-        this.pricePerProduct = product.getPrice();
-        this.price = product.getPrice();
+        this.pricePerProduct = productDto.getPrice();
+        this.price = productDto.getPrice();
     }
 
 

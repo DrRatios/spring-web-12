@@ -1,9 +1,10 @@
 package com.aleksgolds.spring.web.core.services;
 
+import com.aleksgolds.spring.web.api.dto.CartDto;
 import com.aleksgolds.spring.web.api.exceptions.ResourceNotFoundException;
 import com.aleksgolds.spring.web.core.converters.OrderItemConverter;
 
-import com.aleksgolds.spring.web.core.dto.Cart;
+
 import com.aleksgolds.spring.web.core.dto.OrderDetailDto;
 import com.aleksgolds.spring.web.core.entities.Order;
 import com.aleksgolds.spring.web.core.entities.OrderItem;
@@ -11,8 +12,10 @@ import com.aleksgolds.spring.web.core.repositories.OrderRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,9 +26,10 @@ import java.util.stream.Collectors;
 @Data
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final CartService cartService;
     private final OrderItemConverter orderItemConverter;
     private final ProductsService productsService;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public List<Order> findAllOrdersByUsername(String username) {
         return orderRepository.findAllByUsername(username);
@@ -37,8 +41,8 @@ public class OrderService {
 
     @Transactional
     public void createOrder(String username, OrderDetailDto orderDetailDto) {
-        String cartKey = cartService.getCartUuidFromSuffix(username);
-        Cart cart = cartService.getCurrentCart(cartKey);
+        String cartUrl = "http://localhost:5555/cart/api/v1/cart/";
+        CartDto cart = restTemplate.getForObject(cartUrl + username, CartDto.class);
         Order order = Order.builder()
                 .address(orderDetailDto.getAddress())
                 .phone(orderDetailDto.getPhone())
@@ -57,6 +61,6 @@ public class OrderService {
                 .collect(Collectors.toList());
         order.setItems(items);
         orderRepository.save(order);
-        cartService.clearCart(cartKey);
+        restTemplate.getForObject(cartUrl + "clear", CartDto.class);
     }
 }

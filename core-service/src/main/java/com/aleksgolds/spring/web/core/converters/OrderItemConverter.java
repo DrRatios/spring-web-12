@@ -1,6 +1,6 @@
 package com.aleksgolds.spring.web.core.converters;
 
-import com.aleksgolds.spring.web.core.dto.OrderItemDto;
+import com.aleksgolds.spring.web.api.dto.OrderItemDto;
 import com.aleksgolds.spring.web.core.entities.OrderItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

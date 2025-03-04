@@ -1,4 +1,4 @@
-package com.aleksgolds.spring.web.core.dto;
+package com.aleksgolds.spring.web.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

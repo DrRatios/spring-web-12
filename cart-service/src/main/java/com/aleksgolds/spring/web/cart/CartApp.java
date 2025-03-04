@@ -1,11 +1,11 @@
-package com.aleksgolds.spring.web.core;
+package com.aleksgolds.spring.web.cart;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringWebApp {
+public class CartApp {
     public static void main(String[] args) {
-        SpringApplication.run(SpringWebApp.class, args);
+        SpringApplication.run(CartApp.class, args);
     }
 }

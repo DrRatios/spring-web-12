@@ -1,5 +1,6 @@
 angular.module('market-front').controller('cartController', function ($scope, $http, $location, $localStorage) {
-    const contextPath = 'http://localhost:5555/core/api/v1';
+    const contextPath = 'http://localhost:5555/cart/api/v1';
+    const coreContextPath = 'http://localhost:5555/core/api/v1';
 
     $scope.loadCart = function () {
         $http.get(contextPath + '/cart/' + $localStorage.springWebGuestCartId)
@@ -36,7 +37,7 @@ angular.module('market-front').controller('cartController', function ($scope, $h
 
     $scope.createOrder = function () {
         console.log($scope.orderDetails);
-        $http.post(contextPath + '/orders', $scope.orderDetails)
+        $http.post(coreContextPath + '/orders', $scope.orderDetails)
             .then(function (response) {
                 alert("Заказ: " + response.data + " оформлен!");
                 $scope.loadCart();

@@ -1,9 +1,10 @@
-package com.aleksgolds.spring.web.core.controllers;
+package com.aleksgolds.spring.web.cart.controllers;
 
 
 import com.aleksgolds.spring.web.api.dto.StringResponse;
-import com.aleksgolds.spring.web.core.dto.Cart;
-import com.aleksgolds.spring.web.core.services.CartService;
+import com.aleksgolds.spring.web.api.dto.CartDto;
+import com.aleksgolds.spring.web.cart.dto.Cart;
+import com.aleksgolds.spring.web.cart.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
     private final CartService cartService;
     @GetMapping("/{uuid}")
-    public Cart getCart(@RequestHeader(required = false) String username, @PathVariable String uuid) {
-        return cartService.getCurrentCart(getCurrentCartUuid(username, uuid));
+    public CartDto getCart(@RequestHeader(required = false) String username, @PathVariable String uuid) {
+        Cart cart = cartService.getCurrentCart(getCurrentCartUuid(username, uuid));
+        return new CartDto(cart.getItems(),cart.getTotalPrice());
     }
 
     @GetMapping("/generate")
