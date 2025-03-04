@@ -1,6 +1,6 @@
 package com.aleksgolds.spring.web.core.validators;
 
-import com.aleksgolds.spring.web.core.dto.ProductDto;
+import com.aleksgolds.spring.web.api.dto.ProductDto;
 import com.aleksgolds.spring.web.api.exceptions.ValidationException;
 import org.springframework.stereotype.Component;
 

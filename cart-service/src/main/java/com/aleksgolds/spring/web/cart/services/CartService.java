@@ -1,21 +1,25 @@
-package com.aleksgolds.spring.web.core.services;
+package com.aleksgolds.spring.web.cart.services;
 
-import com.aleksgolds.spring.web.api.exceptions.ResourceNotFoundException;
 
-import com.aleksgolds.spring.web.core.dto.Cart;
-import com.aleksgolds.spring.web.core.entities.ProductEntity;
+import com.aleksgolds.spring.web.api.dto.ProductDto;
+import com.aleksgolds.spring.web.cart.dto.Cart;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.UUID;
 import java.util.function.Consumer;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
-    private final ProductsService productsService;
+
     private final RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Value("${utils.cart.prefix}")
     private String cartPrefix;
@@ -36,9 +40,9 @@ public class CartService {
     }
 
     public void addToCart(String cartKey, Long productId) {
-        ProductEntity product = productsService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Невозможно добавить продукт в корзину. Продукт не найдет, id: " + productId));
+        ProductDto productDto = restTemplate.getForObject("http://localhost:5555/core/api/v1/products/" + productId, ProductDto.class);
         execute(cartKey, c -> {
-            c.add(product);
+            c.add(productDto);
         });
     }
 

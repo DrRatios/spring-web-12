@@ -1,4 +1,4 @@
-package com.aleksgolds.spring.web.core.configs;
+package com.aleksgolds.spring.web.cart.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,6 @@
 angular.module('market-front').controller('storeController', function ($scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:5555/core/api/v1';
+    const cartContextPath = 'http://localhost:5555/cart/api/v1';
 
     $scope.loadProducts = function (pageIndex = 1) {
         currentPageIndex = pageIndex;
@@ -20,7 +21,7 @@ angular.module('market-front').controller('storeController', function ($scope, $
     };
 
     $scope.addToCart = function (productId) {
-        $http.get(contextPath + '/cart/' + $localStorage.springWebGuestCartId + '/add/' + productId)
+        $http.get(cartContextPath + '/cart/' + $localStorage.springWebGuestCartId + '/add/' + productId)
             .then(function (response) {
             });
     }

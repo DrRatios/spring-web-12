@@ -1,5 +1,6 @@
 package com.aleksgolds.spring.web.core.dto;
 
+import com.aleksgolds.spring.web.api.dto.OrderItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
