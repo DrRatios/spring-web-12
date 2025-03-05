@@ -2,7 +2,6 @@ package com.aleksgolds.spring.web.cart;
 
 
 import com.aleksgolds.spring.web.api.dto.ProductDto;
-import com.aleksgolds.spring.web.cart.dto.Cart;
 import com.aleksgolds.spring.web.cart.services.CartService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.web.client.RestTemplate;
 
 
