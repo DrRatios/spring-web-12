@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -25,7 +26,7 @@ public class ProductEntity {
     private String title;
 
     @Column(name = "price")
-    private Integer price;
+    private BigDecimal price;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -42,7 +43,7 @@ public class ProductEntity {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Collection<Category> categories;
 
-    public ProductEntity(Long id, String title, Integer price) {
+    public ProductEntity(Long id, String title, BigDecimal price) {
         this.id = id;
         this.title = title;
         this.price = price;

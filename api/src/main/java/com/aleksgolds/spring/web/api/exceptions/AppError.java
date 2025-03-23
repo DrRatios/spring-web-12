@@ -1,15 +1,15 @@
 package com.aleksgolds.spring.web.api.exceptions;
 
 public class AppError {
-    private int statusCode;
+    private String code;
     private String message;
 
-    public int getStatusCode() {
-        return statusCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public void setStatusCode(String statusCode) {
+        this.code = statusCode;
     }
 
     public String getMessage() {
@@ -23,8 +23,8 @@ public class AppError {
     public AppError() {
     }
 
-    public AppError(int statusCode, String message) {
-        this.statusCode = statusCode;
+    public AppError(String statusCode, String message) {
+        this.code = statusCode;
         this.message = message;
     }
 }

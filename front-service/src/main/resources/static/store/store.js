@@ -23,6 +23,8 @@ angular.module('market-front').controller('storeController', function ($scope, $
     $scope.addToCart = function (productId) {
         $http.get(cartContextPath + '/cart/' + $localStorage.springWebGuestCartId + '/add/' + productId)
             .then(function (response) {
+            }, function errorCallback(response){
+                alert("Error callback " + response.data)
             });
     }
 

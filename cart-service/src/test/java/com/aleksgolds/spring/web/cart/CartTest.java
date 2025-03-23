@@ -1,7 +1,7 @@
 package com.aleksgolds.spring.web.cart;
 
 
-import com.aleksgolds.spring.web.api.dto.ProductDto;
+import com.aleksgolds.spring.web.api.dto.core.ProductDto;
 import com.aleksgolds.spring.web.cart.services.CartService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

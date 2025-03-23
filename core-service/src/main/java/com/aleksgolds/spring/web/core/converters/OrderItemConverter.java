@@ -1,6 +1,7 @@
 package com.aleksgolds.spring.web.core.converters;
 
-import com.aleksgolds.spring.web.api.dto.OrderItemDto;
+
+import com.aleksgolds.spring.web.api.dto.core.OrderItemDto;
 import com.aleksgolds.spring.web.core.entities.OrderItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderItemConverter {
 
-    public OrderItem dtoToEntity(OrderItemDto orderItemDto) {
+    public OrderItem dtoToEntity(OrderItemDto cartItemDto) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

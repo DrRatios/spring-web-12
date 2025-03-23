@@ -1,6 +1,6 @@
 package com.aleksgolds.spring.web.core.converters;
 
-import com.aleksgolds.spring.web.api.dto.ProductDto;
+import com.aleksgolds.spring.web.api.dto.core.ProductDto;
 import com.aleksgolds.spring.web.core.entities.ProductEntity;
 import org.springframework.stereotype.Component;
 

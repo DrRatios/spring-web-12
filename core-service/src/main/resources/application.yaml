@@ -13,9 +13,18 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-
   h2:
     console:
       enabled: true
       settings:
         web-allow-others: false
+integrations:
+  cart-service:
+    url: http://localhost:5555/cart
+    timeouts:
+      connect: 2000
+      read: 10000
+      write: 2000
+paypal:
+  client-id: AZX9sEz_m_KSN8L6yOcKLZMq4BJ5bJ1uRpNzPE_5PqswQIRysphIDBii578puqKFxEEP
+  client-secret: EIxWWhYStUGs3iWpMXT98Tpv4_kq-LSUl3XYa2BSvzfok_agUpDBDkGYzabP2XdbJ6y4fdaYQ01rENCi

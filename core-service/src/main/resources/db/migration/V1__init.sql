@@ -1,20 +1,20 @@
 create table if not exists products (
     id          bigserial primary key,
     title       varchar(255),
-    price       int,
+    price       numeric(8,2),
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
 
 insert into products (title, price)
-values ('Milk', 100),
-       ('Bread', 80),
-       ('Beef', 100),
-       ('Pork', 80),
-       ('Колбаса', 100),
-       ('Chicken', 80),
-       ('Tuna', 100),
-       ('Cheese', 90);
+values ('Milk', 100.99),
+       ('Bread', 80.99),
+       ('Beef', 100.99),
+       ('Pork', 80.00),
+       ('Колбаса', 100.00),
+       ('Chicken', 80.00),
+       ('Tuna', 100.00),
+       ('Cheese', 90.00);
 
 create table if not exists categories (
     id bigserial primary key,
@@ -50,7 +50,7 @@ values (1,1),
 create table if not exists orders (
     id bigserial primary key,
     username varchar(255),
-    total_price int,
+    total_price numeric(8,2),
     address varchar(255),
     phone varchar(255),
     created_at timestamp default current_timestamp,
@@ -62,14 +62,21 @@ create table order_items(
     product_id bigint references products(id),
     order_id bigint references orders(id),
     quantity int not null ,
-    price_per_product int not null,
-    price int not null,
+    price_per_product numeric(8,2) not null,
+    price numeric(8,2) not null,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
 
 insert into orders(username, total_price, address, phone) values
-('bob',200,'address','12345');
+('bob',5400.00,'address','12345');
 
-insert into order_items(product_id, order_id, quantity, price_per_product, price) values
-(1,1,2,100,200);
+insert into order_items(product_id, order_id, quantity, price_per_product, price, created_at) values
+(1,1,10,100.00,1000.00,'2025-03-03'),
+(1,1,10,100.00,1000.00,'2025-03-03'),
+(2,1,10,100.00,1000.00,'2025-03-03'),
+(3,1,10,100.00,1000.00,'2025-03-03'),
+(4,1,10,100.00,1000.00,'2025-03-03'),
+(5,1,10,100.00,1000.00,'0001-01-01'),
+(6,1,2,100.00,200.00,'2025-03-03'),
+(7,1,2,100.00,200.00,'2025-03-03');

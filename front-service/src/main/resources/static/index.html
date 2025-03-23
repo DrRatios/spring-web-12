@@ -12,6 +12,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
+
+<!--    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>-->
+<!--    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">-->
 
 </head>
 
@@ -36,6 +40,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#!/registration">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#!/analytics">Рекомендации</a>
                 </li>
 
                 <li class="nav-item" ng-show="!isUserLoggedIn()">
@@ -67,6 +74,12 @@
     <script src="registration/registration.js"></script>
     <script src="welcome/welcome.js"></script>
     <script src="orders/orders.js"></script>
+    <script src="analytics/analytics.js"></script>
+    <script src="order_pay/order_pay.js"></script>
+    <script
+            src="https://www.paypal.com/sdk/js?client-id=AeVXsptOZDlBN5xHGL_pkxfprKHrm_YdH__KNcXZMgxuWoCwz9saI-3wpr9NrRfYA_mtegInussjPlQn&currency=RUB" data-namespace="paypal_sdk">
+    </script>
+
 
 </div>
 
