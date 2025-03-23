@@ -1,7 +1,7 @@
 package com.aleksgolds.spring.web.core.services;
 
 import com.aleksgolds.spring.web.api.exceptions.ResourceNotFoundException;
-import com.aleksgolds.spring.web.api.dto.ProductDto;
+import com.aleksgolds.spring.web.api.dto.core.ProductDto;
 import com.aleksgolds.spring.web.core.entities.ProductEntity;
 import com.aleksgolds.spring.web.core.repositories.ProductsRepository;
 import com.aleksgolds.spring.web.core.repositories.specifications.ProductsSpecifications;
@@ -68,7 +68,7 @@ public class ProductsService {
 
     @Transactional
     public ProductEntity update(ProductDto productDto) {
-        ProductEntity product = productsRepository.findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Невозможно обновить продукта, не надйен в базе, id: " + productDto.getId()));
+        ProductEntity product = productsRepository.findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Невозможно обновить продукт, не надйен в базе, id: " + productDto.getId()));
         product.setPrice(productDto.getPrice());
         product.setTitle(productDto.getTitle());
         return product;

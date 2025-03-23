@@ -1,0 +1,42 @@
+<div>
+    <h3>Самые приобритаемые товары</h3>
+    <table class="table table-hover">
+        <tr>
+            <td>Название товара</td>
+            <td>Общее количество</td>
+            <td>Цена за штуку</td>
+            <td>Цена за всё</td>
+            <td></td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="item in orderAnalytics">
+            <td>{{item.title}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.price * item.quantity}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" ng-click="updateOrderAnalyticsList()">Обновить список</button>
+
+    <h3>Самые просматриваемые товары</h3>
+    <table class="table table-hover">
+        <tr>
+            <td>Название товара</td>
+            <td>Общее количество</td>
+            <td>Цена за штуку</td>
+            <td>Цена за всё</td>
+            <td></td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="item in cartAnalytics">
+            <td>{{item.title}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.price * item.quantity}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" ng-click="updateCartAnalyticsList()">Обновить список</button>
+
+</div>

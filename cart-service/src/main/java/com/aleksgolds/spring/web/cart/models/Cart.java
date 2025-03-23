@@ -1,29 +1,32 @@
-package com.aleksgolds.spring.web.cart.dto;
+package com.aleksgolds.spring.web.cart.models;
 
-import com.aleksgolds.spring.web.api.dto.OrderItemDto;
-import com.aleksgolds.spring.web.api.dto.ProductDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.aleksgolds.spring.web.api.dto.cart.CartItemDto;
+import com.aleksgolds.spring.web.api.dto.core.ProductDto;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @Builder
+@Schema(description = "Модель корзины")
 public class Cart {
-    private List<OrderItemDto> items;
-    private int totalPrice;
+    @Schema(description = "Лист предметов корзины", required = true)
+    private List<CartItem> items;
+    @Schema(description = "Цена корзины", required = true, example = "100.00")
+    private BigDecimal totalPrice;
 
     public Cart() {
         this.items = new ArrayList<>();
     }
 
     public boolean add(Long id) {
-        for (OrderItemDto item : items) {
+        for (CartItem item : items) {
             if (item.getProductId().equals(id)) {
                 item.changeQuantity(1);
                 recalculate();
@@ -37,7 +40,7 @@ public class Cart {
         if (add(productDto.getId())) {
             return;
         }
-        items.add(new OrderItemDto(productDto));
+        items.add(new CartItem(productDto));
         recalculate();
     }
 
@@ -47,9 +50,9 @@ public class Cart {
     }
 
     public void decrement(Long productId) {
-        Iterator<OrderItemDto> iterator = items.iterator();
+        Iterator<CartItem> iterator = items.iterator();
         while (iterator.hasNext()) {
-            OrderItemDto item = iterator.next();
+            CartItem item = iterator.next();
             if (item.getProductId().equals(productId)) {
                 item.changeQuantity(-1);
                 if (item.getQuantity() <= 0) {
@@ -59,35 +62,24 @@ public class Cart {
                 return;
             }
         }
-
-
-        for (OrderItemDto item : items) {
-            if (item.getProductId().equals(productId)) {
-                item.changeQuantity(-1);
-                if (item.getQuantity() <= 0) {
-
-                }
-            }
-        }
-        recalculate();
     }
 
     public void clear() {
         items.clear();
-        totalPrice = 0;
+        totalPrice = BigDecimal.ZERO;
     }
 
     private void recalculate() {
-        totalPrice = 0;
-        for (OrderItemDto item : items) {
-            totalPrice += item.getPrice();
+        totalPrice = BigDecimal.ZERO;
+        for (CartItem o : items) {
+            totalPrice = totalPrice.add(o.getPrice());
         }
     }
 
     public void merge(Cart another) {
-        for (OrderItemDto anotherItem : another.items) {
+        for (CartItem anotherItem : another.items) {
             boolean merged = false;
-            for (OrderItemDto myItem : items) {
+            for (CartItem myItem : items) {
                 if (myItem.getProductId().equals(anotherItem.getProductId())) {
                     myItem.changeQuantity(anotherItem.getQuantity());
                     merged = true;

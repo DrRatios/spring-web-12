@@ -23,7 +23,8 @@
 		<module>auth-service</module>
 		<module>api</module>
 		<module>cart-service</module>
-	</modules>
+        <module>analytics-service</module>
+    </modules>
 
 	<properties>
 		<java.version>11</java.version>

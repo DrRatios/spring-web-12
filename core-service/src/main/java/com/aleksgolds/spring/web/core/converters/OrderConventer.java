@@ -1,8 +1,9 @@
 package com.aleksgolds.spring.web.core.converters;
 
 
-import com.aleksgolds.spring.web.core.dto.OrderDto;
-import com.aleksgolds.spring.web.api.dto.OrderItemDto;
+import com.aleksgolds.spring.web.api.dto.analytics.ProductAnalyticsDto;
+import com.aleksgolds.spring.web.api.dto.core.OrderDto;
+import com.aleksgolds.spring.web.api.dto.cart.CartItemDto;
 import com.aleksgolds.spring.web.core.entities.Order;
 import com.aleksgolds.spring.web.core.entities.OrderItem;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,19 @@ public class OrderConventer {
                 .build();
     }
 
-    public OrderItem dtoToEntity(OrderItemDto orderItemDto) {
+    public OrderItem dtoToEntity(CartItemDto cartItemDto) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public ProductAnalyticsDto entityToAnalyticsDto(OrderItem orderItem) {
+        return ProductAnalyticsDto.builder()
+                .id(orderItem.getProduct().getId())
+                .title(orderItem.getProduct().getTitle())
+                .orderDate(orderItem.getCreatedAt())
+                .quantity(orderItem.getQuantity())
+//                .addToCartDate("")
+                .price(orderItem.getProduct().getPrice())
+                .build();
     }
 
 }

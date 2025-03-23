@@ -1,15 +1,22 @@
 package com.aleksgolds.spring.web.cart.services;
 
 
-import com.aleksgolds.spring.web.api.dto.ProductDto;
-import com.aleksgolds.spring.web.cart.dto.Cart;
+import com.aleksgolds.spring.web.api.dto.analytics.ProductAnalyticsDto;
+import com.aleksgolds.spring.web.api.dto.core.ProductDto;
+import com.aleksgolds.spring.web.api.exceptions.ResourceNotFoundException;
+import com.aleksgolds.spring.web.cart.converters.CartConverter;
+import com.aleksgolds.spring.web.cart.integrations.ProductsServiceIntegration;
+import com.aleksgolds.spring.web.cart.models.Cart;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -18,10 +25,12 @@ import java.util.function.Consumer;
 public class CartService {
 
     private final RedisTemplate<String, Object> redisTemplate;
-    @Autowired
-    private RestTemplate restTemplate;
+    private final ProductsServiceIntegration productsServiceIntegration;
+    private List<ProductAnalyticsDto> productAnalyticsDtoList = new ArrayList<>();
+    private final CartConverter cartConverter;
+    private final Logger log = LoggerFactory.getLogger(CartService.class);
 
-    @Value("${utils.cart.prefix}")
+    @Value(value = "${utils.cart.prefix}")
     private String cartPrefix;
 
     public String getCartUuidFromSuffix(String suffix) {
@@ -39,11 +48,26 @@ public class CartService {
         return (Cart) redisTemplate.opsForValue().get(cartKey);
     }
 
-    public void addToCart(String cartKey, Long productId) {
-        ProductDto productDto = restTemplate.getForObject("http://localhost:5555/core/api/v1/products/" + productId, ProductDto.class);
+    public ProductDto addToCart(String cartKey, Long productId) {
+        ProductDto productDto = productsServiceIntegration.findProductById(productId);
+//                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         execute(cartKey, c -> {
             c.add(productDto);
         });
+        productAnalyticsDtoList.add(cartConverter.productDtoToProductAnalyticsDto(productDto));
+//        log.info(productAnalyticsDtoList.toString());
+        return productDto;
+    }
+
+    public List<ProductAnalyticsDto> getProductAnalyticsDtoList() {
+//        List<Cart> allCarts = redisTemplate.opsForValue().
+        List<ProductAnalyticsDto> newList = new ArrayList<>();
+        productAnalyticsDtoList.stream().forEach(product -> {
+            newList.add(product);
+        });
+        log.info(newList.toString());
+        productAnalyticsDtoList.clear();
+        return newList;
     }
 
     public void clearCart(String cartKey) {
