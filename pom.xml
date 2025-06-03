@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>com.aleksgolds</groupId>
-	<artifactId>spring-web</artifactId>
+	<artifactId>spring-web-market</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>spring-web</name>

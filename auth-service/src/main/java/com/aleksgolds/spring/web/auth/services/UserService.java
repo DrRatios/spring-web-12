@@ -41,6 +41,7 @@ public class UserService implements UserDetailsService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
+    @Transactional
     public User registerUser(User user) {
         user.setId(null);
         Role role = new Role();
